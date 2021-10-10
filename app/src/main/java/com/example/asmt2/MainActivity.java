@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     event.values[0] * event.values[0] +
                             event.values[1] * event.values[1] +
                             event.values[2] * event.values[2]);
-            Log.v("GRAVITY", tmp);
+//            Log.v("GRAVITY", tmp);
             tv.setText(tmp);
         }
     }

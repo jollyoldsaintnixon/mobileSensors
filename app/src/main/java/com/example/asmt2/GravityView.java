@@ -50,7 +50,7 @@ public class GravityView extends View {
         paint.setColor(Color.BLACK);
         paint.setTextSize(18);
         greenPaint.setColor(Color.GREEN);
-        yellowPaint.setColor(Color.YELLOW);
+        yellowPaint.setColor(Color.BLUE);
         redPaint.setColor(Color.RED);
     }
 
@@ -147,7 +147,7 @@ public class GravityView extends View {
         width = this.getWidth();
         height = this.getHeight();
         int box_right = width - box_left;
-        int box_bottom = height - 10;
+        int box_bottom = height - 30;
         int box_width = box_right - box_left;
         int box_height = box_bottom - box_top;
         int box_dx = box_width / divisions;
@@ -162,6 +162,12 @@ public class GravityView extends View {
 //        Log.v("NOTE", "std dev span: " + stdDevSpan);
 //        Log.v("NOTE", "std dev increment: " + stdDevSpanIncrement);
         canvas.drawText(String.valueOf(stdDevMax),(float) box_right +3,(float) box_top, paint);
+        canvas.drawLine(box_left, 44, box_left + 20, 44, greenPaint);
+        canvas.drawText("value", box_left+25, 50, paint);
+        canvas.drawLine(box_left + 90, 44, box_left + 110, 44,redPaint);
+        canvas.drawText("mean", box_left+120, 50, paint);
+        canvas.drawLine(box_left+200, 44, box_left + 220, 44, yellowPaint);
+        canvas.drawText("std. dev.", box_left+225, 50, paint);
         for (int i=0; i<divisions; i++) {
             canvas.drawLine(box_right, box_top + (i * box_dy), box_left, box_top + (i * box_dy), paint); // top to bottom
             canvas.drawLine(box_left + (i * box_dx), box_top, box_left + (i * box_dx), box_bottom, paint); // side to side
@@ -176,7 +182,6 @@ public class GravityView extends View {
         }
         canvas.drawText(String.valueOf((int) Math.floor(convertedMin - (spanIncrement * 2))),(float) box_left - 20,(float) box_top + (divisions * box_dy), paint);
         canvas.drawText(String.valueOf(stdDevMin),(float) box_right +3,(float) box_top + (divisions * box_dy), paint);
-
         plotLines(points, canvas, box_dx, box_dy, box_left, box_top, box_height, greenPaint);
         plotLines(meanList, canvas, box_dx, box_dy, box_left, box_top, box_height, redPaint);
         plotLines(sdList, canvas, box_dx, box_dy, box_left, box_top, box_height, yellowPaint, (stdDevMax - stdDevMin), stdDevMax);

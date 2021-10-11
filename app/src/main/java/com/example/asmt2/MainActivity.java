@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
         sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         tv = (TextView) findViewById(R.id.tv);
-        tv.setText("hi");
+        tv.setText("Sensor Bonanza!");
         acclText = (TextView) findViewById(R.id.acclText);
         gravText = (TextView) findViewById(R.id.gravText);
         sensor_list = sm.getSensorList(Sensor.TYPE_ALL);
@@ -63,11 +63,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void makeText(Sensor sensor, TextView tv) {
-        String text = "Status: " + sensor.getName() + " is Present\n"
+        String name;
+        if (sensor.getName().contains("Gravity")) {
+            name = "gravity sensor";
+        } else {
+            name = "acceleration sensor";
+        }
+        String text = "Status: " + name + " is Present\n"
                 + "Range: " + sensor.getMaximumRange()
                 + " Resolution: " + sensor.getResolution()
                 + " Delay: " + sensor.getMaxDelay();
-//        tv.setText(text);
+        tv.setText(text);
     }
 
 //    private void updatedSensorStatus() {
@@ -115,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                             event.values[1] * event.values[1] +
                             event.values[2] * event.values[2]) - DEFAULT_GRAVITY);
 //            Log.v("GRAVITY", tmp);
-            tv.setText(tmp);
+//            tv.setText(tmp);
         }
     }
 

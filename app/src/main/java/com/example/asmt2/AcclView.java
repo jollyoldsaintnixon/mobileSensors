@@ -34,7 +34,7 @@ public class AcclView extends View {
     double mean;
     // box variables
     int box_left = 100;
-    int box_top = 15;
+    int box_top = 35;
 
 //    public GravityView(Context context) {
 //        super(context);
@@ -48,7 +48,7 @@ public class AcclView extends View {
         paint.setColor(Color.BLACK);
         paint.setTextSize(18);
         greenPaint.setColor(Color.GREEN);
-        yellowPaint.setColor(Color.YELLOW);
+        yellowPaint.setColor(Color.BLUE);
         redPaint.setColor(Color.RED);
     }
 
@@ -151,6 +151,13 @@ public class AcclView extends View {
 //        double stdDevSpanIncrement = stdDevSpan / box_dy;
 //        Log.v("NOTE", "std dev span: " + stdDevSpan);
 //        Log.v("NOTE", "std dev increment: " + stdDevSpanIncrement);
+        canvas.drawText(String.valueOf(stdDevMax),(float) box_right +3,(float) box_top, paint);
+        canvas.drawLine(box_left+100, 10, box_left + 120, 10, greenPaint);
+        canvas.drawText("value", box_left+125, 18, paint);
+        canvas.drawLine(box_left + 190, 10, box_left + 210, 10,redPaint);
+        canvas.drawText("mean", box_left+220, 18, paint);
+        canvas.drawLine(box_left+300, 10, box_left + 320, 10, yellowPaint);
+        canvas.drawText("std. dev.", box_left+325, 18, paint);
         canvas.drawText(String.valueOf(stdDevMax),(float) box_right +3,(float) box_top, paint);
         for (int i=0; i<divisions; i++) {
             canvas.drawLine(box_right, box_top + (i * box_dy), box_left, box_top + (i * box_dy), paint); // top to bottom

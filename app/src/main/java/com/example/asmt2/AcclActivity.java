@@ -48,16 +48,34 @@ public class AcclActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+
         if (event.timestamp - lastPrinted >= 1e8 /// every 100 millisecs
                 &&event.sensor.getName().contains(acclSensor.getName())) {
             lastPrinted = event.timestamp;
-            double accl = Math.sqrt(
-                    event.values[0] * event.values[0] +
-                            event.values[1] * event.values[1] +
-                            event.values[2] * event.values[2]);
-            accl -= MainActivity.DEFAULT_GRAVITY; // subtract out default gravity
+           double accl = Math.sqrt(
+                event.values[0] * event.values[0] +
+                        event.values[1] * event.values[1] +
+                        event.values[2] * event.values[2]);
+            accl -= MainActivity.DEFAULT_GRAVITY;
+            flappingSpeed(accl);
             chart.addPoint(accl);
 
+        }
+    }
+
+    private void flappingSpeed(double accl) {
+        if (accl == 0.0) {
+            birds.setBackgroundResource(R.drawable.b1);
+        }
+        else if (accl < .5 || (accl < 0 && accl > -.5)) {
+            birds.setBackgroundResource(R.drawable.flapper);
+            ((AnimationDrawable)birds.getBackground()).start();
+        } else if (accl < 2.0 || (accl < 0 && accl > -2.0)) {
+            birds.setBackgroundResource(R.drawable.flapper_fast);
+            ((AnimationDrawable)birds.getBackground()).start();
+        } else {
+            birds.setBackgroundResource(R.drawable.flapper_faster);
+            ((AnimationDrawable)birds.getBackground()).start();
         }
     }
 

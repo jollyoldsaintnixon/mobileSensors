@@ -24,6 +24,8 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
+    static double DEFAULT_GRAVITY = 9.809989073394384;
+
     private TextView tv;
     private TextView acclText;
     private TextView gravText;
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 + "Range: " + sensor.getMaximumRange()
                 + " Resolution: " + sensor.getResolution()
                 + " Delay: " + sensor.getMaxDelay();
-        tv.setText(text);
+//        tv.setText(text);
     }
 
 //    private void updatedSensorStatus() {
@@ -107,11 +109,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getName().contains(gravity_sensor.getName())) {
-            String tmp = "" + Math.sqrt(
+        if (event.sensor.getName().contains(accl_sensor.getName())) {
+            String tmp = "" + (Math.sqrt(
                     event.values[0] * event.values[0] +
                             event.values[1] * event.values[1] +
-                            event.values[2] * event.values[2]);
+                            event.values[2] * event.values[2]) - DEFAULT_GRAVITY);
 //            Log.v("GRAVITY", tmp);
             tv.setText(tmp);
         }
@@ -126,6 +128,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Log.v("BUTTON", "attempting new activity");
         Intent gravityIntent = new Intent(this, GravityActivity.class);
         startActivity(gravityIntent);
+    }
+
+    public void viewAccl(View view) {
+        Log.v("BUTTON", "attempting new activity");
+        Intent acclIntent = new Intent(this, AcclActivity.class);
+        startActivity(acclIntent);
     }
 
 //    View.OnClickListener activate = new View.OnClickListener() {

@@ -25,17 +25,22 @@ public class GravityActivity extends AppCompatActivity implements SensorEventLis
     private double max = 0;
     private double min = 10 * GRAV_MULTI;
     long lastPrinted = 0;
-    /* TODO fix value bar at end
-        display stdDev line
-            * new range
-        refactor plot line to take custom view (override?)
-
+    /* TODO fix std dev math and why it starts below 0
+        * labels
+        * take out gravity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gravity);
         chart = (GravityView) findViewById(R.id.chart);
+        chart.setMax(9.806652878216305 * GravityActivity.GRAV_MULTI);
+        chart.setMin(9.806647432344281 * GravityActivity.GRAV_MULTI);
+        chart.setStdDevMax(.008);
+        chart.setStdDevMin(0.0);
+//        chart.setConvertedMax(52);
+//        chart.setConvertedMax(48);
+
         sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor_list = sm.getSensorList(Sensor.TYPE_ALL);
         for(int i = 0; i < sensor_list.size(); i++) {
@@ -50,7 +55,7 @@ public class GravityActivity extends AppCompatActivity implements SensorEventLis
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.timestamp - lastPrinted >= 1e9
+        if (event.timestamp - lastPrinted >= 1e8
                 &&event.sensor.getName().contains(gravity_sensor.getName())) {
             lastPrinted = event.timestamp;
             double gravity = (double) Math.sqrt(

@@ -3,7 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_gravity.xml" value="0.15" />
+        <entry key="app/src/main/res/layout/activity_accl.xml" value="0.28191489361702127" />
+        <entry key="app/src/main/res/layout/activity_gravity.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
       </map>
     </option>

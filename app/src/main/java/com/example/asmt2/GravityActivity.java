@@ -20,7 +20,6 @@ public class GravityActivity extends AppCompatActivity implements SensorEventLis
     static int GRAV_MULTI = 10000;
     private SensorManager sm;
     private Sensor gravity_sensor;
-    private List<Sensor> sensor_list;
     private GravityView chart;
     private double max = 0;
     private double min = 10 * GRAV_MULTI;
@@ -34,18 +33,8 @@ public class GravityActivity extends AppCompatActivity implements SensorEventLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gravity);
         chart = (GravityView) findViewById(R.id.chart);
-        chart.setMax(9.806652878216305 * GravityActivity.GRAV_MULTI);
-        chart.setMin(9.806647432344281 * GravityActivity.GRAV_MULTI);
-        chart.setStdDevMax(.008);
-        chart.setStdDevMin(0.0);
-//        chart.setConvertedMax(52);
-//        chart.setConvertedMax(48);
 
         sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        sensor_list = sm.getSensorList(Sensor.TYPE_ALL);
-        for(int i = 0; i < sensor_list.size(); i++) {
-            Log.v("-------->>", i + ": " + sensor_list.get(i).getName() + "");
-        }
         //get gravity and light sensor
         gravity_sensor = sm.getDefaultSensor(Sensor.TYPE_GRAVITY);
 

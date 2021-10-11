@@ -2,6 +2,7 @@ package com.example.asmt2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -9,6 +10,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,7 +20,8 @@ public class AcclActivity extends AppCompatActivity implements SensorEventListen
 //    static int GRAV_MULTI = 10000;
     private SensorManager sm;
     private Sensor acclSensor;
-    private GravityView chart;
+    private AcclView chart;
+    private ImageView birds;
 //    private double max = 0;
 //    private double min = 10 * GRAV_MULTI;
     long lastPrinted = 0;
@@ -29,13 +32,7 @@ public class AcclActivity extends AppCompatActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accl);
-        chart = (GravityView) findViewById(R.id.chart);
-        chart.setMax(20);
-        chart.setMin(-20);
-        chart.setStdDevMax(4.0);
-        chart.setStdDevMin(0.0);
-        chart.setConvertedMax(20);
-        chart.setConvertedMax(-20);
+        chart = findViewById(R.id.acclChart);
 
         sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         //get gravity and light sensor
@@ -43,6 +40,10 @@ public class AcclActivity extends AppCompatActivity implements SensorEventListen
 
         //register sensors
         sm.registerListener(this, acclSensor, 10200000);
+
+        birds = findViewById(R.id.birds);
+        birds.setBackgroundResource(R.drawable.flapper);
+        ((AnimationDrawable)birds.getBackground()).start();
     }
 
     @Override
@@ -56,6 +57,7 @@ public class AcclActivity extends AppCompatActivity implements SensorEventListen
                             event.values[2] * event.values[2]);
             accl -= MainActivity.DEFAULT_GRAVITY; // subtract out default gravity
             chart.addPoint(accl);
+
         }
     }
 

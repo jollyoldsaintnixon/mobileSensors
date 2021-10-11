@@ -26,7 +26,7 @@
         android:rotationY="0"
         android:text="Data"
         android:translationX="0dp"
-        android:translationY="200dp" />
+        android:translationY="150dp" />
 
     <TextView
         android:id="@+id/textView5"
@@ -35,12 +35,12 @@
         android:rotation="-90"
         android:text="Standard Deviation"
         android:translationX="160dp"
-        android:translationY="30dp" />
+        android:translationY="-20dp" />
 
-    <com.example.asmt2.GravityView
-        android:id="@+id/chart"
+    <com.example.asmt2.AcclView
+        android:id="@+id/acclChart"
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="200dp" />
 
     <TextView
         android:id="@+id/textView3"
@@ -48,6 +48,11 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Time (100 millisecs)" />
+
+    <ImageView
+        android:id="@+id/birds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 
 </LinearLayout>
